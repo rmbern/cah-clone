@@ -1,0 +1,7 @@
+DROP TABLE if EXISTS players;
+
+CREATE TABLE players(
+  name TEXT PRIMARY KEY UNIQUE NOT NULL,
+  score INTEGER,
+  judge INTEGER
+)
