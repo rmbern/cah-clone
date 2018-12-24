@@ -28,10 +28,9 @@ def register_player():
   db.commit()
   
   # TODO: error handling
-  res_string = "You have been added to the db!!"
-  for i in db.execute('SELECT * FROM players').fetchall():
-    # have to be careful with a lot of special chars that
-    # flask seems to disallow
-    res_string +="|"+ i['name']+"|"
-    print(res_string)
-  return res_string
+  all_player_names = [] # list of strings
+  for player_record in db.execute('SELECT * FROM players').fetchall():
+    all_player_names.append(player_record['name'])
+  return render_template('lobby.html',
+                          username=player_name,
+                          players=all_player_names)
