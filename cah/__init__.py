@@ -1,9 +1,8 @@
 import os
-from flask import Flask
+from flask import Flask, session
 from werkzeug.contrib.cache import SimpleCache
 
 def create_app(test_config=None):
-  print("CREATING APP")
   app = Flask(__name__, instance_relative_config=True)
   app.config.from_mapping(
     SECRET_KEY='not so secret, huh?',
@@ -18,13 +17,22 @@ def create_app(test_config=None):
   try: os.makedirs(app.instance_path)
   except OSError:
     pass
-
+  
   from . import db
   with app.app_context():
     db.init_app(app)
 
   from . import login
   app.register_blueprint(login.bp)
+
+  from . import answer
+  app.register_blueprint(answer.bp)
+
+  from . import ready
+  app.register_blueprint(ready.bp)
+
+  from . import question
+  app.register_blueprint(question.bp)
 
   return app
 
