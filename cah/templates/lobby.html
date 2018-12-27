@@ -1,0 +1,16 @@
+<!doctype html>
+<title>{% block title %}{% endblock %}LOBBY</title>
+<body>
+<h1>Welcome {{ username }}!</h1>
+<p>The following players are signed in:</p>
+<ul>
+  {% for player in players %}
+  <li>{{ player }}</li>
+  {% endfor %}
+</ul>
+<p>Click "Ready" once everyone has signed in!</p>
+  <form method='post' action='/submit-ready'>
+    <input type="submit" value="Ready">
+  </form>
+</body>
+
