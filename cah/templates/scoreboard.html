@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<body>
+<h1>WINNING ANSWER:<h1>
+<h2>{{ winning_answer }}</h2>
+<h2>SCORE:</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Score</th>
+  </tr>
+  {% for name, score in records %}
+  <tr>
+    <td> {{ name }} </td>
+    <td> {{ score }} </td>
+  </tr>
+  {% endfor %}
+</table>
+</body>
+</html>

@@ -34,5 +34,11 @@ def create_app(test_config=None):
   from . import question
   app.register_blueprint(question.bp)
 
+  from . import judge
+  app.register_blueprint(judge.bp)
+
+  from . import scoring
+  app.register_blueprint(scoring.bp)
+
   return app
 

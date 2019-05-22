@@ -5,15 +5,10 @@
 let xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = () =>
 {
-  console.log("STATE CHANGE");
-  console.log(xhttp.readyState);
-  console.log(xhttp.status);
-  console.log(xhttp.responseText);
   if (xhttp.readyState === 4 &&
       xhttp.status === 200 &&
       xhttp.responseText === "READY")
   {
-    console.log("REDIRECT");
     window.location.replace('/question-phase');
   }
 }

@@ -1,0 +1,92 @@
+<!doctype html>
+<title>{% block title %}{% endblock %}WAITING</title>
+<body>
+<script type="application/javascript">
+let radial_update_xhttp = new XMLHttpRequest();
+radial_update_xhttp.onreadystatechange = (() =>
+{
+  // TODO: Does IIFE for static variables need functional scope?
+  // Side note: There is no pleasant way to use static vars in JS
+  var oldResponseText = "";
+
+  return () =>
+  {
+    if (radial_update_xhttp.readyState === 4 &&
+        radial_update_xhttp.status === 200)
+    {
+      if(radial_update_xhttp.responseText !== oldResponseText)
+      {
+        // Using archaic C indicies because trying to do
+        // anything with a modern iterable concept in
+        // Javascript devolves into playing Russian Roulette
+        // with the type system.
+
+        // TODO: probably something with typescript until
+        //       I decide it isn't worth the headache from
+        //       having to baloon my deployment.
+
+        // clear form contents
+        let form_node = document.getElementById('answer-form');
+        for (i = 0; i < form_node.children.length; i++)
+        {
+          if (form_node.children[i].id !== "submit-button")
+          {
+            form_node.removeChild(form_node.children[i]);
+          }
+        }
+
+        let answers = JSON.parse(radial_update_xhttp.responseText);
+        console.log(answers);
+        if (answers[0] !== null) // Make sure someone has actually sumbitted
+                                 // an answer
+        {
+          // answers should be an array of strings from here on out.
+          for (i = 0; i < answers.length; i++)
+          {
+            // create a new paragraph for each button
+            let new_paragraph = document.createElement('p');
+
+            // create label 
+            let new_ip_label = document.createElement('label');
+            new_ip_label.setAttribute('for',i); // i is unique enough
+                                                // to bind label w/ input
+            let answerTextNode = document.createTextNode(answers[i]);
+            new_ip_label.appendChild(answerTextNode);
+
+            new_paragraph.appendChild(new_ip_label);
+
+            // create radio button 
+            let new_input = document.createElement('input');
+            new_input.setAttribute('type', 'radio');
+            new_input.setAttribute('id', i); // i is unique enough
+                                             // to bind label w/ input
+            new_input.setAttribute('name', 'answer-button');
+            new_input.setAttribute('value', answers[i]);
+            new_paragraph.appendChild(new_input);
+
+            // Note that all input elements are children
+            // of the paragraph tag we created at the
+            // beginning of the loop.
+            document.getElementById("answer-form")
+                    .appendChild(new_paragraph);
+          }
+        }
+      }
+      oldResponseText = radial_update_xhttp.responseText;
+    }
+  }
+})(); // (); is intentional! Don't remove!
+
+setInterval(() =>
+{
+  radial_update_xhttp.open("GET", "/get-answers", true);
+  radial_update_xhttp.send();
+}, 1000);
+</script>
+
+<h1>Wait for everyone to submit answers!</h1>
+<p>Select the best answer:</p>
+<form id="answer-form" method='post' action='/select-winner'>
+<input id="submit-button" type="submit" id="answer-button" value="Submit">
+</form>
+</body>

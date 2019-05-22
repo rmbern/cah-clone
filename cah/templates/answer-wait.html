@@ -1,6 +1,23 @@
 <!doctype html>
 <title>{% block title %}{% endblock %}WAITING</title>
 <body>
+<script type="application/javascript">
+let xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = () =>
+{
+  if (xhttp.readyState === 4 &&
+      xhttp.status === 200 &&
+      xhttp.responseText === "JUDGE ANSWERED")
+  {
+    window.location.replace('/scoreboard');
+  }
+}
+setInterval(() =>
+{
+  xhttp.open("GET", "/judge-answered", true);
+  xhttp.send();
+}, 1000);
+</script>
 <h1>Waiting for everyone to submit answers!</h1>
 <p>Your answer:</p>
 <p>{{ answer }}</p>
