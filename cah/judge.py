@@ -18,7 +18,6 @@ def select_winner():
   # should have populated answers at this point, but we
   # explicity make sure we are not updating a judge's score
   # for defensive purposes.
-  current_app.logger.info("Request form:" + str(request.form.__dict__))
   db.execute(
     'UPDATE players'
     ' SET score = score + 1'
