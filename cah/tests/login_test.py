@@ -1,5 +1,3 @@
-from flask import session
-from pprint import pprint
 import startup
 from startup import client
 

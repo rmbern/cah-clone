@@ -1,5 +1,6 @@
 from flask import \
-  Blueprint, session, redirect, render_template, send_from_directory, current_app
+  Blueprint, session, redirect, render_template, send_from_directory,\
+  current_app
 from cah.db import get_db
 
 bp = Blueprint('ready', __name__)
@@ -7,18 +8,19 @@ bp = Blueprint('ready', __name__)
 def ready():
   if 'username' in session:
     player_name = session['username']
-  else:
-    # TODO: Use flash correctly!!
-    flash('Error! Ready attempted with no session!')
-    print('Error! Ready attempted with no session!')
-  db = get_db()
-  db.execute(
-    'UPDATE players'
-    ' SET ready = 1'
-    ' WHERE name = ?',(player_name,))
-  db.commit()
+    db = get_db()
+    db.execute(
+      'UPDATE players'
+      ' SET ready = 1'
+      ' WHERE name = ?',(player_name,))
+    db.commit()
 
-  return send_from_directory('static', 'wait-for-ready.html')
+    return render_template('wait-for-ready.html', player=player_name)
+  else:
+    current_app.logger.warning("Player with no username in session"
+                              "sent a ready signal!")
+
+    return "You don't exist!"
 
 @bp.route('/ask-if-ready', methods=['GET'])
 def redirect_when_all_ready():

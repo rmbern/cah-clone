@@ -111,4 +111,3 @@ INSERT INTO questions (question)
 
 INSERT INTO questions (question)
   VALUES('What does Donald Trump do in his free time?');
-
