@@ -1,0 +1,24 @@
+<!doctype html>
+<title>WAITING FOR READY</title>
+<body>
+<script type="application/javascript">
+let xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = () =>
+{
+  if (xhttp.readyState === 4 &&
+      xhttp.status === 200 &&
+      xhttp.responseText === "READY")
+  {
+    window.location.replace('/question-phase');
+  }
+}
+setInterval(() =>
+{
+  console.log("SEND REQUEST");
+  xhttp.open("GET", "/ask-if-ready", true);
+  xhttp.send();
+},1000);
+</script>
+<h1>{{ player }} is ready!</h1>
+<h2>Waiting for all players to be ready</h2>
+</body>
