@@ -38,6 +38,8 @@ def test_invalid_login(client):
   assert b'try again using' in res.data
 
 def test_duplicate_login(client):
+  # New test request contexts so we don't try two
+  # logins under the same session.
   with startup.get_app().test_request_context():
     res = client.post('/login',
                       data = {"username":"duplicate"},

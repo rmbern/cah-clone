@@ -10,10 +10,14 @@ CREATE TABLE players (
   answer TEXT
 );
 
+-- TODO: Remove id and use rowid?
+--       id is redundant, but using large question strings
+--       for primary keys is clunky...
 CREATE TABLE questions (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   question TEXT
 );
+
 
 -- The db is the easiest way to share a single state
 -- between all clients, so a db table with only one
@@ -22,8 +26,8 @@ CREATE TABLE current_question (
   question TEXT
 );
 
-INSERT INTO current_question (question)
-  VALUES ("NO QUESTION"); 
+-- TODO: Move this all into an init script. It does
+--       not define a schema.
 
 INSERT INTO questions (question)
   VALUES ("THIS IS A SAMPLE QUESTION");
@@ -111,3 +115,15 @@ INSERT INTO questions (question)
 
 INSERT INTO questions (question)
   VALUES('What does Donald Trump do in his free time?');
+
+-- Start the game off with a random question
+
+-- TODO: Is our random variable uniform in distribution?
+INSERT INTO current_question (question)
+  VALUES ((SELECT question FROM questions
+             WHERE id = (abs(random()) % (SELECT count(*) FROM questions)) + 1));
+
+-- Randomly select a judge using the hidden rowid field sqlite provides.
+UPDATE players
+SET judge = 1
+WHERE rowid = (abs(random()) % (SELECT count(*) FROM players)) + 1;
