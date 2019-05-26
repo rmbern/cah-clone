@@ -38,9 +38,24 @@ def update_answer(answer):
 
 def update_question():
   db = get_db()
+  
+  # First, delete the question we just used.
+  # TODO: We have nothing handling the exhaustion
+  #       of questions. This will most likely
+  #       result in a crash.
+
+  current_question = db.execute(
+    'SELECT question FROM current_question'
+  ).fetchone()['question']
+  
+  db.execute(
+    'DELETE FROM questions'
+    ' WHERE question = ?', (current_question,)
+  )
 
   question_records = db.execute(
-    'SELECT question FROM questions').fetchall()
+    'SELECT question FROM questions'
+  ).fetchall()
 
   r = random.Random()
   q_index = r.randrange(0,len(question_records))
@@ -52,9 +67,13 @@ def update_question():
 
 def update_judge():
   db = get_db()
-
+  
+  # We are going to select a judge randomly,
+  # excluding the player who is currently the
+  # judge.
   judge_records = db.execute(
     'SELECT name FROM players'
+    ' WHERE judge <> 1'
   ).fetchall()
   r = random.Random()
   j_index = r.randrange(0,len(judge_records))
@@ -82,7 +101,7 @@ def commit_all_updates():
   db.commit()
 
 @bp.route('/submit-answer', methods=['POST'])
-def answer():
+def submit_answer():
   with current_app.app_context():
     answer = request.form['answer']
     update_answer(answer)
@@ -90,7 +109,8 @@ def answer():
     if all_answered():
       update_question()
       update_judge()
-      clear_answers()
+      # TODO: PUT THIS IN THE RIGHT SPOT
+      #clear_answers()
 
     commit_all_updates()
 
