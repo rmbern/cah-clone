@@ -9,10 +9,12 @@ def select_winner():
   # Look up score of player(s) submitting winning answer,
   # and increment it.
 
-  # In what should be a rare case of two players submitting
-  # the same answer, and one of those answers being chosen,
-  # we will increment the score of both players.
   db = get_db()
+
+  # In what should be a rare case of 2+ players submitting
+  # the same answer, and one of those answers being chosen,
+  # we will increment the score of both players, except in
+  # the case where one of those players is a judge.
   
   # The judge should have a blank answer whereas all players
   # should have populated answers at this point, but we
@@ -32,7 +34,7 @@ def select_winner():
     'UPDATE players'
     ' SET answer = ?'
     ' WHERE judge = 1'
-    ' AND name = ?', (request.form['answer-button'], session['username']))
+    ' AND name = ?', (request.form['answer-button'], session['username'],))
   # TODO: My gut said to check that an update actually occured
   #       for this one sql statement, but maybe it belongs to
   #       most of them? I can't think of a situation in this
