@@ -43,6 +43,13 @@ def select_winner():
 
   if change_diff == 0:
     current_app.logger.warning("Judge's answer was not updated!")
+  
+  # Remove all ready flags. Players will re-submit a ready request
+  # on the scoreboard page.
+  db.execute(
+    'UPDATE players'
+    ' SET ready = 0'
+  )
 
   db.commit()
 

@@ -36,83 +36,13 @@ def update_answer(answer):
     ' WHERE name = ?',
     (answer, player_name,))
 
-def update_question():
-  db = get_db()
-  
-  # First, delete the question we just used.
-  # TODO: We have nothing handling the exhaustion
-  #       of questions. This will most likely
-  #       result in a crash.
-
-  current_question = db.execute(
-    'SELECT question FROM current_question'
-  ).fetchone()['question']
-  
-  db.execute(
-    'DELETE FROM questions'
-    ' WHERE question = ?', (current_question,)
-  )
-
-  question_records = db.execute(
-    'SELECT question FROM questions'
-  ).fetchall()
-
-  r = random.Random()
-  q_index = r.randrange(0,len(question_records))
-  new_question = question_records[q_index]['question']
-
-  db.execute(
-    'UPDATE current_question'
-    ' SET question = ?', (new_question,))
-
-def update_judge():
-  db = get_db()
-  
-  # We are going to select a judge randomly,
-  # excluding the player who is currently the
-  # judge.
-  judge_records = db.execute(
-    'SELECT name FROM players'
-    ' WHERE judge <> 1'
-  ).fetchall()
-  r = random.Random()
-  j_index = r.randrange(0,len(judge_records))
-  new_judge = judge_records[j_index]['name']
- 
-  db.execute(
-    'UPDATE players'
-    ' SET judge = 0'
-  )
-
-  db.execute(
-    'UPDATE players'
-    ' SET judge = 1'
-    ' WHERE name = ?',(new_judge,)
-  )
-
-def clear_answers():
-  db = get_db()
-  db.execute(
-    'UPDATE players'
-    ' SET answer = NULL')
-
-def commit_all_updates():
-  db = get_db()
-  db.commit()
-
 @bp.route('/submit-answer', methods=['POST'])
 def submit_answer():
   with current_app.app_context():
+    db = get_db()
     answer = request.form['answer']
     update_answer(answer)
-
-    if all_answered():
-      update_question()
-      update_judge()
-      # TODO: PUT THIS IN THE RIGHT SPOT
-      #clear_answers()
-
-    commit_all_updates()
+    db.commit()
 
   return render_template('answer-wait.html', answer=answer)
 

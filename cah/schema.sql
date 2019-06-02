@@ -120,8 +120,8 @@ INSERT INTO questions (question)
 
 -- TODO: Is our random variable uniform in distribution?
 INSERT INTO current_question (question)
-  VALUES ((SELECT question FROM questions
-             WHERE id = (abs(random()) % (SELECT count(*) FROM questions)) + 1));
+  VALUES("INITIALIZATION");
+        
 
 -- Randomly select a judge using the hidden rowid field sqlite provides.
 UPDATE players
