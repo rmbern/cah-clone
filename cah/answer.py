@@ -50,10 +50,12 @@ def submit_answer():
 def get_answers():
   with current_app.app_context():
     # Construct and return a json object of all answers
+    # excluding nulls and the current player's answer.
     db = get_db()
     answer_records = db.execute(
                          'SELECT answer FROM players'
-                         ' WHERE name <> ?',(session['username'],)
+                         ' WHERE name != ?'
+                         ' AND answer IS NOT NULL',(session['username'],)
                         ).fetchall()
     
     # TODO: Can the map iterable be passed to json.dumps?

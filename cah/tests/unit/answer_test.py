@@ -16,6 +16,7 @@ def test_get_answers(client):
   #       This would go away with the removal of session
   #       dependence.
   # assert b'PLAYER 1 ANSWER' in res.data
+  # TODO: Check for no nulls
   assert b'PLAYER 2 ANSWER' in res.data
 
 def test_all_answered(client):

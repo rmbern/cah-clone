@@ -17,7 +17,7 @@ def update_judge():
   # judge.
   judge_records = db.execute(
     'SELECT name FROM players'
-    ' WHERE judge <> 1'
+    ' WHERE judge != 1'
   ).fetchall()
   r = random.Random()
   j_index = r.randrange(0,len(judge_records))
