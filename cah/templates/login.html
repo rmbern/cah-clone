@@ -1,12 +1,15 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} CAHCLONE</title>
-{% if error != None %}
-<p>{{ error }}</p>
-{% endif %}
-<form method='post' action='/login'>
-  <label for='username'>Enter your name:</label>
-  <input name='username' id='username'
-   title="alphanumeric characters, numbers, and underscores"
-   pattern='( |\w)+' required>
-  <input type="submit" value="login">
-</form>
+<body>
+  <h1>CAHCLONE! The Cards Against Humanity clone for LAN parties!</h1>
+  {% if error != None %}
+  <p>{{ error }}</p>
+  {% endif %}
+  <form method='post' action='/login'>
+    <label for='username'>Enter your name:</label>
+    <input name='username' id='username'
+     title="alphanumeric characters, numbers, and underscores"
+     pattern='( |\w)+' required>
+    <input type="submit" value="login" id='submit'>
+  </form>
+</body>
