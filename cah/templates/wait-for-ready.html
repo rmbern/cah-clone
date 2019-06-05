@@ -1,5 +1,14 @@
 <!doctype html>
-<title>WAITING FOR READY</title>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name='description' content='dear lord how did you manage to scrape this'>
+  <link rel='stylesheet'  href='../static/bootstrap-4.3.1-dist/css/bootstrap.min.css'>
+  <link rel='stylesheet'  href='../static/cah-clone.css'>
+
+  <title>WAITING FOR READY</title>
+</head>
+
 <body>
 <script type="application/javascript">
 let xhttp = new XMLHttpRequest();
@@ -19,6 +28,9 @@ setInterval(() =>
   xhttp.send();
 },1000);
 </script>
-<h1>{{ player }} is ready!</h1>
-<h2>Waiting for all players to be ready</h2>
+<div class='text-center m-5'>
+  <h1>{{ player }} is ready!</h1>
+  <h2>Waiting for all players to be ready</h2>
+</div>
 </body>
+</html>

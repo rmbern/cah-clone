@@ -1,15 +1,41 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} CAHCLONE</title>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name='description' content='dear lord how did you manage to scrape this'>
+  <link rel='stylesheet'  href='../static/bootstrap-4.3.1-dist/css/bootstrap.min.css'>
+  <link rel='stylesheet'  href='../static/cah-clone.css'>
+
+  <title>CAHCLONE</title>
+</head>
+
 <body>
-  <h1>CAHCLONE! The Cards Against Humanity clone for LAN parties!</h1>
-  {% if error != None %}
-  <p>{{ error }}</p>
-  {% endif %}
-  <form method='post' action='/login'>
-    <label for='username'>Enter your name:</label>
-    <input name='username' id='username'
-     title="alphanumeric characters, numbers, and underscores"
-     pattern='( |\w)+' required>
-    <input type="submit" value="login" id='submit'>
-  </form>
+
+  <div class='text-center m-5'>
+    
+    <div class='m-4'>
+    <h1>CAHCLONE!</h1>
+    </div>
+
+    <div class='m-4'>
+    <h2>The Cards Against Humanity clone for LAN parties!</h2>
+    </div>
+
+    {% if error != None %}
+    <p>{{ error }}</p>
+    {% endif %}
+    <form method='post' action='/login'>
+
+      <div class='form-group p-3'>
+        <input name='username' id='username'
+         title="alphanumeric characters, numbers, and underscores"
+         pattern='( |\w)+' placeholder='Enter your name!'
+         required>
+        <input type="submit" class="btn btn-secondary" value="login" id='submit'>
+      </div>
+
+    </form>
+  </div>
 </body>
+</html>

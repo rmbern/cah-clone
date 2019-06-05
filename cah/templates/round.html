@@ -1,10 +1,26 @@
 <!doctype html>
-<title>{% block title %}{% endblock %}ROUND</title>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name='description' content='dear lord how did you manage to scrape this'>
+  <link rel='stylesheet'  href='../static/bootstrap-4.3.1-dist/css/bootstrap.min.css'>
+  <link rel='stylesheet'  href='../static/cah-clone.css'>
+
+  <title>ROUND</title>
+</head>
+
 <body>
-<h1>Question:</h1>
-<p>{{ question }}</p>
-<form method='post' action='/submit-answer'>
-  <label for='answer'>Enter your answer! Be clever!</label>
-  <input name='answer' id='answer' required>
-  <input type='submit' id='submit' value='Answer'>
+  <div class='text-center m-5'>
+    <h1>Question:</h1>
+    <h5 class='p-4'>{{ question }}</h5>
+    <form method='post' action='/submit-answer'>
+      <div class='form-group p-3'>
+        <input name='answer' id='answer'
+         placeholder='Enter answer here!'required>
+        <input type='submit' class='btn btn-secondary' id='submit' value='Answer'>
+      </div>
+    </form>
+  </div>
 </body>
+</html>

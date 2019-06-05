@@ -1,5 +1,13 @@
 <!doctype html>
-<title>{% block title %}{% endblock %}WAITING</title>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name='description' content='dear lord how did you manage to scrape this'>
+  <link rel='stylesheet'  href='../static/bootstrap-4.3.1-dist/css/bootstrap.min.css'>
+  <link rel='stylesheet'  href='../static/cah-clone.css'>
+
+  <title>WAITING</title>
+</head>
 <body>
 <script type="application/javascript">
 let xhttp = new XMLHttpRequest();
@@ -18,7 +26,10 @@ setInterval(() =>
   xhttp.send();
 }, 1000);
 </script>
-<h1>Waiting for everyone to submit answers!</h1>
-<p>Your answer:</p>
-<p>{{ answer }}</p>
+<div class='text-center m-5'>
+  <h1 class='p-3'>Waiting for everyone to submit answers!</h1>
+  <h3 class='p-3'>Your answer:</h4>
+  <h4 class='p-3'>{{ answer }}</h4>
+</div>
 </body>
+</html>

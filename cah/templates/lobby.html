@@ -1,16 +1,36 @@
 <!doctype html>
-<title>{% block title %}{% endblock %}LOBBY</title>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name='description' content='dear lord how did you manage to scrape this'>
+  <link rel='stylesheet'  href='../static/bootstrap-4.3.1-dist/css/bootstrap.min.css'>
+  <link rel='stylesheet'  href='../static/cah-clone.css'>
+
+<title>LOBBY</title>
+</head>
+
 <body>
-<h1>Welcome {{ username }}!</h1>
-<p>The following players are signed in:</p>
-<ul>
+
+<div class='text-center m-5'>
+  <div class='m-4'>
+    <h1>Welcome {{ username }}!</h1>
+  </div>
+
+  <div class='m-4'>
+    <h2>The following players are signed in:</h2>
+  </div>
+
   {% for player in players %}
-  <li>{{ player }}</li>
+  <h4 class='font-weight-bold'>{{ player }}</h4>
   {% endfor %}
-</ul>
-<p>Click "Ready" once everyone has signed in!</p>
+
+  <p class='pt-2'>Click "Ready" once everyone has signed in!</p>
   <form method='post' action='/submit-ready'>
     <input type="submit" value="Ready">
   </form>
+</div>
+
 </body>
+</html>
 

@@ -42,7 +42,6 @@ def test_serve_question(client):
     
     res = client.get('/question-phase', follow_redirects = True)
 
-    assert b"your answer" in res.data
     assert question in res.data
   
     # Case for judge (player 3 in sql script)

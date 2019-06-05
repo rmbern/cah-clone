@@ -1,24 +1,39 @@
 <!doctype html>
 <html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name='description' content='dear lord how did you manage to scrape this'>
+  <link rel='stylesheet'  href='../static/bootstrap-4.3.1-dist/css/bootstrap.min.css'>
+  <link rel='stylesheet'  href='../static/cah-clone.css'>
+
+  <title>SCORE</title>
+</head>
+
 <body>
-<h1>WINNING ANSWER:</h1>
-<h2>{{ winning_answer }}</h2>
-<h3>SCORE:</h3>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Score</th>
-  </tr>
-  {% for name, score in records %}
-  <tr>
-    <td> {{ name }} </td>
-    <td> {{ score }} </td>
-  </tr>
-  {% endfor %}
-</table>
-<p>When you are ready to go to the next round, click on "ready"</p>
-<form action='/submit-ready' method='post'>
-  <input type='submit' value='Ready!' />
-</form>
+  <div class='text-center m-5'>
+    <h1 class='p-3'>WINNING ANSWER:</h1>
+    <h2 class='p-4'>{{ winning_answer }}</h2>
+    <table class='mx-auto table table-bordered w-50'>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for name, score in records %}
+      <tr>
+        <td> {{ name }} </td>
+        <td> {{ score }} </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+    <p>When you are ready to go to the next round, click on "ready"</p>
+    <form action='/submit-ready' method='post'>
+      <input type='submit' class='btn btn-secondary' value='Ready!' />
+    </form>
+  </div>
 </body>
 </html>
