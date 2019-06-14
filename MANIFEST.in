@@ -1,0 +1,3 @@
+graft cah/static/
+graft cah/templates/
+include cah/schema.sql
